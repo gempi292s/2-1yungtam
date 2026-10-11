@@ -1,4 +1,4 @@
-"""2023 오토인코더 vs 새 모델을 학습에 쓰지 않은 단어(test split)로 비교.
+"""2024 오토인코더 vs 새 모델을 학습에 쓰지 않은 단어(test split)로 비교.
 
 python evaluate.py                    # 지표 출력 + comparison.png 저장
 """
@@ -31,7 +31,7 @@ def run(args):
     new = load_model(args.model)
     old = load_legacy(args.legacy)
 
-    for name, augment in [("2023 방식 (고정 폰트/위치, 글자 가림)", False),
+    for name, augment in [("2024 방식 (고정 폰트/위치, 글자 가림)", False),
                           ("증강 (다양한 폰트/위치/노이즈/임의 사각형)", True)]:
         samples = fixed_set(test_words, fonts, args.n, seed=7, augment=augment)
         masked, mask, clean, _, _, words = collate(samples)
@@ -41,8 +41,8 @@ def run(args):
         read = ctc_greedy_decode(ctc)
         print(f"\n== {name}, test 단어 {len(samples)}개 ==")
         print(f"{'모델':<34}{'masked L1 ↓':>12}{'PSNR ↑':>9}{'pixel acc ↑':>13}")
-        for label, pred in [("2023 Autoencoder (출력 그대로)", old_out),
-                            ("2023 Autoencoder (+마스크 합성)", old_comp),
+        for label, pred in [("2024 Autoencoder (출력 그대로)", old_out),
+                            ("2024 Autoencoder (+마스크 합성)", old_comp),
                             ("2026 WordInpainter", new_comp)]:
             m = metrics(pred, clean, mask)
             print(f"{label:<34}{m['masked_L1']:>12.4f}{m['PSNR']:>9.2f}{m['masked_pixel_acc']:>13.3f}")
@@ -55,7 +55,7 @@ def run(args):
                 rows.append(np.concatenate([masked[i, 0], old_out[i, 0], new_comp[i, 0], clean[i, 0]], 1))
                 rows.append(np.full((3, rows[-1].shape[1]), 0.6, np.float32))
             Image.fromarray((np.concatenate(rows, 0) * 255).astype(np.uint8)).save(args.image)
-            print(f"비교 이미지 저장: {args.image}  (왼쪽부터: 입력 | 2023 | 2026 | 정답)")
+            print(f"비교 이미지 저장: {args.image}  (왼쪽부터: 입력 | 2024 | 2026 | 정답)")
 
 
 if __name__ == "__main__":

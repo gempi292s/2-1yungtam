@@ -1,4 +1,4 @@
-"""2023 Keras 오토인코더(autoencoder_model.h5)를 PyTorch 로 옮겨서 같은 조건으로 비교하기 위한 모듈.
+"""2024 Keras 오토인코더(autoencoder_model.h5)를 PyTorch 로 옮겨서 같은 조건으로 비교하기 위한 모듈.
 
 TensorFlow 없이 h5py 로 가중치만 읽어옴.
 """

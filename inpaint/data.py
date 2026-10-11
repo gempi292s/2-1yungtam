@@ -1,6 +1,6 @@
 """단어 이미지 합성 데이터셋.
 
-2023 버전(데이터전처리.py)과 달라진 점
+2024 버전(데이터전처리.py)과 달라진 점
 - 이미지를 디스크에 미리 저장하지 않고 학습 중에 매번 새로 생성 (무한 데이터, 매 에폭 다른 마스크)
 - 글자 위치를 실제 렌더링 좌표(textlength/textbbox)로 계산 → 가림 상자가 글자와 정확히 일치
 - 여러 폰트/크기/위치/노이즈로 증강해서 실제 이미지에도 강하게
@@ -57,7 +57,7 @@ def load_font(name, size):
 
 
 def load_words(csv_path="english Dictionary.csv"):
-    """2023 버전과 같은 규칙: 알파벳으로만 된 단어, 소문자, 중복 제거."""
+    """2024 버전과 같은 규칙: 알파벳으로만 된 단어, 소문자, 중복 제거."""
     df = pd.read_csv(csv_path, usecols=["word"])
     w = df["word"].dropna().astype(str)
     w = w[~w.str.contains(r"[^a-zA-Z]")].str.lower()
@@ -108,7 +108,7 @@ def make_sample(word, rng, fonts, augment=True):
         ink = rng.randint(0, 60)
         bg = rng.randint(200, 255)
     else:
-        # 2023 버전과 같은 고정 배치 (x=10, y=10, 크기 24)
+        # 2024 버전과 같은 고정 배치 (x=10, y=10, 크기 24)
         font, (l, t, r, b) = fit_font(word, fonts[0] if fonts else None, 24, rng)
         x0, y0, ink, bg = 10, 10, 0, 255
     img, boxes = render_word(word, font, x0, y0, ink, bg)
@@ -123,7 +123,7 @@ def make_sample(word, rng, fonts, augment=True):
     mask = np.zeros((IMG_H, IMG_W), dtype=np.float32)
     mode = rng.random() if augment else 0.0
     if mode < 0.7:
-        # 2023 버전과 같은 방식: 글자 단위로 가리기 (단, 전부는 가리지 않음)
+        # 2024 버전과 같은 방식: 글자 단위로 가리기 (단, 전부는 가리지 않음)
         k = rng.randint(1, max(1, (len(word) + 1) // 2))
         for i in rng.sample(range(len(word)), k):
             x1, y1, x2, y2 = boxes[i]

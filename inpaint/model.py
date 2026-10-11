@@ -1,6 +1,6 @@
 """마스크 인식 U-Net + Transformer 병목 + 글자 인식(CTC) 보조 헤드.
 
-2023 버전 오토인코더(Conv 5층, 마스크 정보 없음)와 비교
+2024 버전 오토인코더(Conv 5층, 마스크 정보 없음)와 비교
 - 입력: [가려진 이미지, 마스크] 2채널 → 어디를 복원해야 하는지 모델이 앎
 - ConvNeXt 블록(7x7 depthwise conv + LayerNorm + GELU MLP(x2) + layer scale) 기반 U-Net
 - 병목에 Transformer: 단어 전체를 보고 가려진 글자를 추론 (문맥 사용)
