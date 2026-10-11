@@ -1,0 +1,5 @@
+torch>=2.2
+numpy
+pandas
+pillow>=10.1
+h5py  # evaluate.py 에서 2023 모델(autoencoder_model.h5) 비교할 때만 필요
