@@ -28,7 +28,7 @@
 ```bash
 pip install -r requirements.txt
 
-python app.py                                  # GUI: 이미지 열기 → 드래그로 영역 선택 → 복원
+python app.py                                  # GUI: 이미지 열기 → (검은 상자 자동 선택 / 드래그) → 복원
 python restore.py 입력.png --box 40 5 90 45     # 명령줄 복원 (box 는 여러 개 가능)
 python restore.py --demo hello                  # 데모 단어로 바로 테스트
 python evaluate.py                              # 2024 vs 2026 비교 + comparison.png
