@@ -126,7 +126,7 @@ def main():
             print(f"[val] step {step} {m}", flush=True)
             if best is None or m["masked_l1"] < best["masked_l1"]:
                 best = dict(m, step=step)
-                torch.save({"config": ema.config, "state_dict": {k: v.half() for k, v in ema.state_dict().items()},
+                torch.save({"config": ema.config, "state_dict": {k: v.half().cpu() for k, v in ema.state_dict().items()},
                             "val": best}, args.out)
                 print(f"saved {args.out}", flush=True)
         if out_of_time:
